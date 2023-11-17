@@ -1,5 +1,6 @@
 'use client';
 import FormDisgner from '@/components/builder/FormDisgner';
+import OverlayWrapper from '@/components/builder/OverlayWrapper';
 import PreviewButton from '@/components/builder/PreviewButton';
 import PublishFormButton from '@/components/builder/PublishFormButton';
 import SaveFormBtn from '@/components/builder/SaveFormBtn';
@@ -26,6 +27,7 @@ const FormBuilder = ({ form }: { form: Form }) => {
           <FormDisgner />
         </div>
       </main>
+      <OverlayWrapper></OverlayWrapper>
     </DndContext>
   );
 };
