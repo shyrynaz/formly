@@ -26,8 +26,10 @@ import { PlusCircledIcon, ReloadIcon } from '@radix-ui/react-icons';
 import { toast } from '@/components/ui/use-toast';
 import { schemaType, schema } from '@/schemas/form';
 import { CreateForm } from '@/actions/form';
+import { useRouter } from 'next/navigation';
 
 const CreateFormButton = () => {
+  const router = useRouter();
   const form = useForm<schemaType>({
     resolver: zodResolver(schema)
   });
@@ -35,7 +37,7 @@ const CreateFormButton = () => {
   const onSubmit = async (values: schemaType) => {
     try {
       const formId = await CreateForm(values);
-      console.log('form created', formId);
+      router.push(`/builder/${formId}`);
 
       toast({
         title: 'Success',
