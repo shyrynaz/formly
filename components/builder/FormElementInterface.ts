@@ -9,7 +9,9 @@ export type FormElement = {
     icon: React.ElementType;
     label: string;
   };
-  BuilderComponent: React.FC;
+  BuilderComponent: React.FC<{
+    elementInstance: FormElementInstance;
+  }>;
   PreviewComponent: React.FC;
   PropertiesComponent: React.FC;
 };

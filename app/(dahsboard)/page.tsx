@@ -187,7 +187,7 @@ function FormCard({ form }: { form: Form }) {
             asChild
             className='w-full mt-2 text-md gap-4'
           >
-            <Link href={`/forms/${form.id}`}>
+            <Link href={`/builder/${form.id}`}>
               Edit form <Pencil1Icon />
             </Link>
           </Button>

@@ -27,7 +27,7 @@ const FormElementButton = ({ formElement }: FormElementBtn) => {
       {...draggable.listeners}
       {...draggable.attributes}
     >
-      <Icon classname='h-8 w-8 text-primary' />
+      <Icon className='h-8 w-8 text-primary' />
       <p className='text-xs'>{label}</p>
     </Button>
   );
@@ -42,7 +42,7 @@ export const FormElementButtonDragOverlay = ({
       variant={'outline'}
       className={cn('flex flex-col h-[120px] gap-2 w-[120px] cursor-grab')}
     >
-      <Icon classname='h-8 w-8 text-primary' />
+      <Icon className='h-8 w-8 text-primary' />
       <p className='text-xs'>{label}</p>
     </Button>
   );
