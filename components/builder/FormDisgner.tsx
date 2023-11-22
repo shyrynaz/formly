@@ -37,8 +37,6 @@ const FormDisgner = () => {
     }
   });
 
-  console.log(elements, 'elements');
-
   return (
     <div className='flex w-full h-full'>
       <FormElementsSideBar />

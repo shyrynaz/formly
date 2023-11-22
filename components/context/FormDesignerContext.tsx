@@ -6,6 +6,7 @@ import { ReactNode, createContext, useState } from 'react';
 type FormDesignerContextType = {
   elements: FormElementInstance[];
   addElement: (index: number, element: FormElementInstance) => void;
+  removeElement: (id: string) => void;
 };
 
 export const FormDesignerContext =
@@ -26,9 +27,16 @@ export default function FormDesignerContextProvider({
     });
   };
 
+  const removeElement = (id: string) => {
+    setFormElements(previous => {
+      const newElements = previous.filter(element => element.instanceId !== id);
+      return newElements;
+    });
+  };
+
   return (
     <FormDesignerContext.Provider
-      value={{ elements: formElements, addElement }}
+      value={{ elements: formElements, addElement, removeElement }}
     >
       {children}
     </FormDesignerContext.Provider>
