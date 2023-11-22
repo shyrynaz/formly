@@ -4,7 +4,8 @@ import {
 } from '@/components/builder/FormElementInterface';
 import { Button } from '@/components/ui/button';
 import useFormDesigner from '@/hooks/useFormDesigner';
-import { useDroppable } from '@dnd-kit/core';
+import { cn } from '@/lib/utils';
+import { useDraggable, useDroppable } from '@dnd-kit/core';
 import React, { useState } from 'react';
 import { BiSolidTrash } from 'react-icons/bi';
 
@@ -34,8 +35,22 @@ const FormElementWrapper = ({ element }: ElementWrapperProps) => {
 
   const BuilderElement = FormElements[element.type].BuilderComponent;
 
+  const draggable = useDraggable({
+    id: `${element.instanceId}_drag`,
+    data: {
+      type: element.type,
+      elementId: element.instanceId,
+      isFormDesignerElement: true
+    }
+  });
+
+  if (draggable.isDragging) return null;
+
   return (
     <div
+      ref={draggable.setNodeRef}
+      {...draggable.listeners}
+      {...draggable.attributes}
       className='relative h-[120px] flex flex-col text-foreground hover:cursor-pointer rounded-md ring-1 ring-accent ring-inset'
       onMouseEnter={() => setIsMouseOver(true)}
       onMouseLeave={() => setIsMouseOver(false)}
@@ -66,7 +81,18 @@ const FormElementWrapper = ({ element }: ElementWrapperProps) => {
           </div>
         </>
       )}
-      <div className='flex w-full h-[120px] items-center rounded-md bg-accent/30 px-4 py-2 pointer-events-none'>
+      {topHalf.isOver && (
+        <div className='absolute top-0 w-full rounded-md h-[7px] bg-primary rounded-b-none' />
+      )}
+      {bottomHalf.isOver && (
+        <div className='absolute bottom-0 w-full rounded-md h-[7px] bg-primary rounded-t-none' />
+      )}
+      <div
+        className={cn(
+          'flex w-full h-[120px] items-center rounded-md bg-accent/30 px-4 py-2 pointer-events-none opacity-100',
+          isMouseOver && 'opacity-30'
+        )}
+      >
         <BuilderElement elementInstance={element} />
       </div>
     </div>
