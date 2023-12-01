@@ -13,8 +13,13 @@ import {
 import FormElementWrapper from '@/components/builder/FormElementWrapper';
 
 const FormDisgner = () => {
-  const { elements, addElement, setSelectedElement, selectedElement } =
-    useFormDesigner();
+  const {
+    elements,
+    addElement,
+    setSelectedElement,
+    selectedElement,
+    removeElement
+  } = useFormDesigner();
   const droppable = useDroppable({
     id: 'desiner-drop-area',
     data: {
@@ -28,12 +33,70 @@ const FormDisgner = () => {
       if (!active || !over) return;
 
       const isBuilderBtnElement = active?.data?.current?.isBuilderBtnElement;
-      if (isBuilderBtnElement) {
+      const isDroppingOnDesignerDropArea =
+        over?.data?.current?.isDesignerDropArea;
+      if (isBuilderBtnElement && isDroppingOnDesignerDropArea) {
         const type = active?.data?.current?.type;
         const newElement = FormElements[type as ElementType].construct(
           uuidv4()
         );
-        addElement(0, newElement);
+        addElement(elements.length, newElement);
+        return;
+      }
+
+      const isDroppingOverBuilderElement =
+        over?.data?.current?.isTopHalf | over?.data?.current?.isBottomHalf;
+
+      if (isDroppingOverBuilderElement && isBuilderBtnElement) {
+        const type = active?.data?.current?.type;
+        const newElement = FormElements[type as ElementType].construct(
+          uuidv4()
+        );
+
+        const hoveredId = over?.data?.current?.elementId;
+
+        const hoveredElementIndex = elements?.findIndex(
+          element => element.instanceId === hoveredId
+        );
+
+        let newElementIndex = hoveredElementIndex;
+        if (over?.data?.current?.isBottomHalf) {
+          newElementIndex = hoveredElementIndex + 1;
+        }
+        addElement(newElementIndex, newElement);
+        return;
+      }
+
+      const isDraggingElement = active?.data?.current?.isFormDesignerElement;
+
+      const draggingOverBuilderElement =
+        isDroppingOverBuilderElement && isDraggingElement;
+
+      if (draggingOverBuilderElement) {
+        const activeId = active?.data?.current?.elementId;
+        const hoveredId = over?.data?.current?.elementId;
+
+        const hoveredElementIndex = elements?.findIndex(
+          element => element.instanceId === hoveredId
+        );
+
+        const activeElementIndex = elements?.findIndex(
+          element => element.instanceId === activeId
+        );
+
+        if (activeElementIndex === -1 || hoveredElementIndex === -1) {
+          throw new Error('element not found');
+        }
+
+        const activeElement = { ...elements[activeElementIndex] };
+        removeElement(activeId);
+
+        let newElementIndex = hoveredElementIndex;
+        if (over?.data?.current?.isBottomHalf) {
+          newElementIndex = hoveredElementIndex + 1;
+        }
+        addElement(newElementIndex, activeElement);
+        return;
       }
     }
   });
