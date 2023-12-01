@@ -13,7 +13,8 @@ import {
 import FormElementWrapper from '@/components/builder/FormElementWrapper';
 
 const FormDisgner = () => {
-  const { elements, addElement } = useFormDesigner();
+  const { elements, addElement, setSelectedElement, selectedElement } =
+    useFormDesigner();
   const droppable = useDroppable({
     id: 'desiner-drop-area',
     data: {
@@ -40,7 +41,12 @@ const FormDisgner = () => {
   return (
     <div className='flex w-full h-full'>
       <FormElementsSideBar />
-      <div className='p-4 w-full'>
+      <div
+        className='p-4 w-full'
+        onClick={() => {
+          if (selectedElement) setSelectedElement(null);
+        }}
+      >
         <div
           ref={droppable.setNodeRef}
           className={cn(

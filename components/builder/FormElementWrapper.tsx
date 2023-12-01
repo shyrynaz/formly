@@ -15,7 +15,7 @@ interface ElementWrapperProps {
 
 const FormElementWrapper = ({ element }: ElementWrapperProps) => {
   const [isMouseOver, setIsMouseOver] = useState(false);
-  const { removeElement } = useFormDesigner();
+  const { removeElement, setSelectedElement } = useFormDesigner();
   const topHalf = useDroppable({
     id: `${element.instanceId}-top`,
     data: {
@@ -54,6 +54,10 @@ const FormElementWrapper = ({ element }: ElementWrapperProps) => {
       className='relative h-[120px] flex flex-col text-foreground hover:cursor-pointer rounded-md ring-1 ring-accent ring-inset'
       onMouseEnter={() => setIsMouseOver(true)}
       onMouseLeave={() => setIsMouseOver(false)}
+      onClick={e => {
+        e.stopPropagation();
+        setSelectedElement(element);
+      }}
     >
       <div
         ref={topHalf.setNodeRef}
@@ -69,7 +73,10 @@ const FormElementWrapper = ({ element }: ElementWrapperProps) => {
             <Button
               className='h-full flex justify-center border rounded-md rounded-l-none bg-red-500'
               variant='outline'
-              onClick={() => removeElement(element.instanceId)}
+              onClick={e => {
+                e.stopPropagation();
+                removeElement(element.instanceId);
+              }}
             >
               <BiSolidTrash className='h-6 w-6' />
             </Button>
