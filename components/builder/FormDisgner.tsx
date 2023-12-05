@@ -1,6 +1,6 @@
 'use client';
 import PropertiesSideBar from '@/components/builder/PropertiesSideBar';
-import React, { useState } from 'react';
+import React from 'react';
 import { DragEndEvent, useDndMonitor, useDroppable } from '@dnd-kit/core';
 import FormElementsSideBar from '@/components/builder/FormElements';
 import { v4 as uuidv4 } from 'uuid';
@@ -96,7 +96,6 @@ const FormDisgner = () => {
           newElementIndex = hoveredElementIndex + 1;
         }
         addElement(newElementIndex, activeElement);
-        return;
       }
     }
   });
