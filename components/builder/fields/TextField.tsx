@@ -54,7 +54,7 @@ export const TextFieldElement: FormElement = {
     label: 'TextField'
   },
   BuilderComponent: TextBuilderComponent,
-  PreviewComponent: () => <div>Designer</div>,
+  PreviewComponent: PreviewComponent,
   PropertiesComponent: PropertiesComponent
 };
 
@@ -75,6 +75,26 @@ function TextBuilderComponent({
         {label} {required && '*'}
       </Label>
       <Input readOnly disabled placeholder={placeholder} />
+      {helperText && (
+        <p className='text-[0.8rem] text-muted-foreground'>{helperText}</p>
+      )}
+    </div>
+  );
+}
+
+function PreviewComponent({
+  elementInstance
+}: {
+  elementInstance: FormElementInstance;
+}) {
+  const element = elementInstance as CustomElementInstance;
+  const { label, required, placeholder, helperText } = element.elementAttr;
+  return (
+    <div className='flex flex-col gap-2 w-full'>
+      <Label className='text-foreground'>
+        {label} {required && '*'}
+      </Label>
+      <Input placeholder={placeholder} />
       {helperText && (
         <p className='text-[0.8rem] text-muted-foreground'>{helperText}</p>
       )}
