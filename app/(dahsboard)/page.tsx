@@ -177,7 +177,7 @@ function FormCard({ form }: { form: Form }) {
       <CardFooter>
         {form.published ? (
           <Button asChild className='w-full mt-2 text-md gap-4'>
-            <Link href={`/forms/${form.id}`}>
+            <Link href={`/formdetails/${form.id}`}>
               View submissions <ArrowRightIcon />
             </Link>
           </Button>
