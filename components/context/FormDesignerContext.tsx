@@ -16,6 +16,7 @@ type FormDesignerContextType = {
   updateElement: (id: string, element: FormElementInstance) => void;
   selectedElement: FormElementInstance | null;
   setSelectedElement: Dispatch<SetStateAction<FormElementInstance | null>>;
+  setFormElements: Dispatch<SetStateAction<FormElementInstance[]>>;
 };
 
 export const FormDesignerContext =
@@ -63,7 +64,8 @@ export default function FormDesignerContextProvider({
         removeElement,
         selectedElement,
         setSelectedElement,
-        updateElement
+        updateElement,
+        setFormElements
       }}
     >
       {children}

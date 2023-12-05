@@ -4,6 +4,7 @@ import OverlayWrapper from '@/components/builder/OverlayWrapper';
 import PreviewButton from '@/components/builder/PreviewButton';
 import PublishFormButton from '@/components/builder/PublishFormButton';
 import SaveFormBtn from '@/components/builder/SaveFormBtn';
+import useFormDesigner from '@/hooks/useFormDesigner';
 import {
   DndContext,
   MouseSensor,
@@ -12,9 +13,10 @@ import {
   useSensors
 } from '@dnd-kit/core';
 import { Form } from '@prisma/client';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const FormBuilder = ({ form }: { form: Form }) => {
+  const { setFormElements } = useFormDesigner();
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10 //10px
@@ -27,6 +29,12 @@ const FormBuilder = ({ form }: { form: Form }) => {
     }
   });
   const sensors = useSensors(mouseSensor, touchSensor);
+  useEffect(() => {
+    if (form.content) {
+      const parsedContent = JSON.parse(form.content);
+      setFormElements(parsedContent);
+    }
+  }, [form, setFormElements]);
   return (
     <DndContext sensors={sensors}>
       <main className='flex flex-col w-full'>
@@ -37,7 +45,7 @@ const FormBuilder = ({ form }: { form: Form }) => {
           </h2>
           <div className='flex items-center gap-2'>
             <PreviewButton />
-            <SaveFormBtn />
+            <SaveFormBtn id={form.id} />
             <PublishFormButton />
           </div>
         </nav>
