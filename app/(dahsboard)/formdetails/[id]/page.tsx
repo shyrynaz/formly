@@ -39,32 +39,41 @@ const FormDetailsPage = async ({ params: { id } }: Params) => {
           className='shadow-sm shadow-blue-500'
         />
         <StatsCard
-          title='Total Visits'
+          title='Total Submissions'
           icon={<EyeOpenIcon />}
-          subtitle='All time form visits'
-          value={visits.toLocaleString() || ''}
+          subtitle='All time form submissions'
+          value={submissions.toLocaleString() || ''}
           loading={false}
           className='shadow-sm shadow-blue-500'
         />
         <StatsCard
-          title='Total Visits'
+          title='Submission Rate'
           icon={<EyeOpenIcon />}
           subtitle='All time form visits'
-          value={visits.toLocaleString() || ''}
+          value={submissionRate.toLocaleString() || ''}
           loading={false}
           className='shadow-sm shadow-blue-500'
         />
         <StatsCard
-          title='Total Visits'
+          title='Bounce Rate'
           icon={<EyeOpenIcon />}
           subtitle='All time form visits'
-          value={visits.toLocaleString() || ''}
+          value={bounceRate.toLocaleString() || ''}
           loading={false}
           className='shadow-sm shadow-blue-500'
         />
       </div>
+      <Submissions />
     </>
   );
 };
 
 export default FormDetailsPage;
+
+function Submissions() {
+  return (
+    <div className='container my-2'>
+      <h1>Submissions</h1>
+    </div>
+  );
+}
