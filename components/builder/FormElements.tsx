@@ -10,8 +10,10 @@ const FormElementsSideBar = () => {
         <p className='text-sm text-foreground/70'>Form elements</p>
       </div>
       <Separator className='mb-4' />
-      <div className='p-4'>
+      <p className='px-4 font-bold'>Layout Elements</p>
+      <div className='grid grid-cols-1 md:grid-cols-2  gap-4 place-items-center p-4'>
         <FormElementButton formElement={FormElements.TextField} />
+        <FormElementButton formElement={FormElements.TitleField} />
       </div>
     </aside>
   );

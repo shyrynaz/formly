@@ -1,6 +1,7 @@
 import { TextFieldElement } from '@/components/builder/fields/TextField';
+import { TitleFieldElement } from '@/components/builder/fields/TitleField';
 
-export type ElementType = 'TextField';
+export type ElementType = 'TextField' | 'TitleField';
 
 export type OnChangeType = (key: string, value: string) => void;
 
@@ -36,5 +37,6 @@ type FormElementsType = {
 };
 
 export const FormElements: FormElementsType = {
-  TextField: TextFieldElement
+  TextField: TextFieldElement,
+  TitleField: TitleFieldElement
 };
