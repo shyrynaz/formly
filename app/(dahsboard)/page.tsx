@@ -105,7 +105,7 @@ interface StatsCardProps {
   loading: boolean;
   className: string;
 }
-function StatsCard(props: StatsCardProps) {
+export function StatsCard(props: StatsCardProps) {
   const { title, icon, className, subtitle, loading, value } = props;
   return (
     <Card className={className}>

@@ -2,6 +2,8 @@ import { TextFieldElement } from '@/components/builder/fields/TextField';
 
 export type ElementType = 'TextField';
 
+export type OnChangeType = (key: string, value: string) => void;
+
 export type FormElement = {
   type: ElementType;
   construct: (instanceId: string) => FormElementInstance;
@@ -14,10 +16,13 @@ export type FormElement = {
   }>;
   PreviewComponent: React.FC<{
     elementInstance: FormElementInstance;
+    onInputChange?: (key: string, value: string) => void;
+    isInvalid?: boolean;
   }>;
   PropertiesComponent: React.FC<{
     elementInstance: FormElementInstance;
   }>;
+  validate: (element: FormElementInstance, value: string) => boolean;
 };
 
 export type FormElementInstance = {
